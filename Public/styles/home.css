@@ -8,8 +8,14 @@ main {
 
 #search-results {
   background-color: pink;
+  display: flex;
+  flex-direction: column;
+  height: 50vh;
+  overflow: hidden;
+  overflow-y: auto;
+  gap: 0.5rem;
 }
 
 .poster-img {
-  width: 200px;
+  width: 100px;
 }
