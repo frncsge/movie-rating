@@ -1,14 +1,18 @@
 const apiURL = "http://www.omdbapi.com";
 const apiKey = "87cd98b4";
 
+const searchResults = document.getElementById("search-results");
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 
 //if user clicks search
 searchBtn.addEventListener("click", async () => {
   const userInput = searchInput.value;
-  const movies = await getMovies(userInput);
-  showPosters(movies);
+
+  if (userInput !== "") {
+    const movies = await getMovies(userInput);
+    showPosters(movies);
+  }
 });
 
 //if user press enter when searching
@@ -17,6 +21,17 @@ searchInput.addEventListener("keydown", async (event) => {
     const userInput = searchInput.value;
     const movies = await getMovies(userInput);
     showPosters(movies);
+  }
+});
+
+//close results if user clicks outside of it
+document.addEventListener("click", (event) => {
+  const clickedOutsideSearch =
+    !searchResults.contains(event.target) && //check if user clicked outisde the search bar and search results
+    !searchInput.contains(event.target);
+
+  if (clickedOutsideSearch && searchResults.style.display === "flex") {
+    searchResults.style.display = "none";
   }
 });
 
@@ -37,7 +52,6 @@ async function getMovies(userInput) {
 
 //show fetch api result
 function showPosters(movies) {
-  const searchResults = document.getElementById("search-results");
   const noPhoto =
     "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg"; //substitute for no poster
 
@@ -55,5 +69,6 @@ function showPosters(movies) {
     }
 
     searchResults.appendChild(img);
+    searchResults.style.display = "flex";
   });
 }
