@@ -58,19 +58,24 @@ function showMovies(movies) {
   //remove items inside the search results first
   searchResults.innerHTML = "";
 
-  movies.forEach((movie) => {
-    const { Title, Year, Poster } = movie;
-    let searchResult;
+  if (!movies) {
+    searchResults.innerHTML = "No results found.";
+  } else {
+    movies.forEach((movie) => {
+      const { Title, Year, Poster } = movie;
+      let searchResult;
 
-    if (Poster === "N/A") {
-      searchResult = setUpResultTemplate(Title, Year, noPhoto);
-    } else {
-      searchResult = setUpResultTemplate(Title, Year, Poster);
-    }
+      if (Poster === "N/A") {
+        searchResult = setUpResultTemplate(Title, Year, noPhoto);
+      } else {
+        searchResult = setUpResultTemplate(Title, Year, Poster);
+      }
 
-    searchResults.insertAdjacentHTML("beforeend", searchResult);
-    searchResults.style.display = "flex";
-  });
+      searchResults.insertAdjacentHTML("beforeend", searchResult);
+    });
+  }
+
+  searchResults.style.display = "flex"; 
 }
 
 function setUpResultTemplate(title, year, poster) {
