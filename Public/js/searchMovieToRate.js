@@ -79,7 +79,7 @@ function showMovies(movies) {
 }
 
 function setUpResultTemplate(title, year, poster) {
-  //i used onerror for this to put back-up img when the poster img fails to load
+  //i used onerror for this to put a back-up img when the poster img fails to load
   //i set it up to null first so it only checks once incase the back-up also fails, causing an infinite error check loop
   const resultTemplate = `<div class="result-wrapper">
             <section class="result-movie-poster-img-section">
