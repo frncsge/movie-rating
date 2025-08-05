@@ -11,7 +11,7 @@ searchBtn.addEventListener("click", async () => {
 
   if (userInput !== "") {
     const movies = await getMovies(userInput);
-    showPosters(movies);
+    showMovies(movies);
   }
 });
 
@@ -20,7 +20,7 @@ searchInput.addEventListener("keydown", async (event) => {
   if (event.key === "Enter") {
     const userInput = searchInput.value;
     const movies = await getMovies(userInput);
-    showPosters(movies);
+    showMovies(movies);
   }
 });
 
@@ -51,7 +51,7 @@ async function getMovies(userInput) {
 }
 
 //show fetch api result
-function showPosters(movies) {
+function showMovies(movies) {
   const noPhoto =
     "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg"; //substitute for no poster
 
