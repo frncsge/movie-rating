@@ -1,5 +1,16 @@
 <%- include('partials/header.ejs') %>
 
 <h1>Home page ni bai</h1>
+<div>
+  <form action="/addpage" method="get">
+    <button
+      title="Add a movie to rate"
+      type="submit"
+      id="go-to-add-movie-page-btn"
+    >
+      +
+    </button>
+  </form>
+</div>
 
 <%- include('partials/footer.ejs') %>
