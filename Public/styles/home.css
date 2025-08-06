@@ -39,6 +39,19 @@ main {
   gap: 0.5rem;
 }
 
+.movie-card {
+  padding: 1rem;
+  box-shadow: -5px 10px 10px 1px rgb(243, 243, 243);
+  max-width: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-bottom: 1rem;
+}
+
 .movie-title {
   margin-top: 0;
 }
@@ -55,4 +68,17 @@ main {
 
 .main-movie-poster {
   width: 200px;
+  border: 1px solid red;
+}
+
+.main-movie-rating {
+  margin: 0;
+}
+
+.main-personal-score {
+  margin-top: 0px;
+}
+
+.main-movie-date-wrapper {
+  width: 100%;
 }
