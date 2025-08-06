@@ -1,5 +1,10 @@
 <%- include('partials/header.ejs') %>
 
-<h1>I love u jaja</h1>
+<% if(!locals.movies) { %>
+    <p id="no-movies-indicator">No movies rated yet</p>
+<% } else { %>
+    <h1 id="main-title">Personal Movie Ratings</h1>
+    <p id="main-description">This is where I put my opinions on a movie that I have watched.</p>
+<% } %>
 
 <%- include('partials/footer.ejs') %>

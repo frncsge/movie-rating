@@ -7,10 +7,11 @@ body {
 
 main {
   display: flex;
-  align-items: start;
-  justify-content: center;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
   flex: 1;
-
+  position: relative;
   padding-top: 1rem;
 }
 
@@ -40,4 +41,9 @@ main {
 
 .movie-title {
   margin-top: 0;
+}
+
+#no-movies-indicator {
+  position: absolute;
+  top: 50%;
 }
