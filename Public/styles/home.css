@@ -1,8 +1,17 @@
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 main {
   display: flex;
-  align-items: start;
-  justify-content: center;
-
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
   padding-top: 1rem;
 }
 
@@ -10,7 +19,8 @@ main {
   background-color: pink;
   display: flex;
   flex-direction: column;
-  height: 50vh;
+  max-height: 400px;
+  max-width: 200px;
   overflow: hidden;
   overflow-y: auto;
   gap: 0.5rem;
@@ -19,4 +29,56 @@ main {
 
 .poster-img {
   width: 100px;
+}
+
+.result-wrapper {
+  border: 1px solid red;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.movie-card {
+  padding: 1rem;
+  box-shadow: -5px 10px 10px 1px rgb(243, 243, 243);
+  max-width: 500px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-bottom: 1rem;
+}
+
+.movie-title {
+  margin-top: 0;
+}
+
+#no-movies-indicator {
+  position: absolute;
+  top: 50%;
+  color: black;
+}
+
+#main-title {
+  margin: 0;
+}
+
+.main-movie-poster {
+  width: 200px;
+  border: 1px solid red;
+}
+
+.main-movie-rating {
+  margin: 0;
+}
+
+.main-personal-score {
+  margin-top: 0px;
+}
+
+.main-movie-date-wrapper {
+  width: 100%;
 }

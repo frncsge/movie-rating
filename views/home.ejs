@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/home.css" />
-    <script defer src="/js/search.js"></script>
-    <title>movie-rating</title>
-  </head>
-  <body>
-    <main>
-      <div id="search-container">
-        <input id="search-input" type="text" placeholder="Search a movie to rate"/>
-        <button id="search-btn">Search</button>
-        <div id="search-results"></div>
-      </div>
-    </main>
-  </body>
-</html>
+<%- include('partials/header.ejs') %>
+
+<h1 id="main-title">Personal Movie Ratings</h1>
+<p id="main-description">This is where I put my opinions on a movie that I have watched.</p>
+
+<% if(!locals.movies) { %>
+    <p id="no-movies-indicator">No movies rated yet</p>
+<% } else { %>
+    <% movies.forEach((movie) => { %>
+        <div class="movie-card">
+            <div class="main-movie-date-wrapper">
+                <span class="main-movie-date"><%= movie.date %></span>
+            </div>
+            <img class="main-movie-poster" src="<%= movie.poster %>" alt="Movie Poster">
+            <p class="main-movie-title-and-year"><%= movie.title %> (<%= movie.year %>)</p>
+            <p class="main-personal-score">Personal score: <%= movie.score %> / 5</p>
+            <div class="main-movie-rating-wrapper">
+                <p class="main-movie-rating"><%= movie.rating %></p>
+            </div>
+        </div>
+    <% }) %>
+<% } %>
+
+<%- include('partials/footer.ejs') %>
