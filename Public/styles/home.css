@@ -46,4 +46,9 @@ main {
 #no-movies-indicator {
   position: absolute;
   top: 50%;
+  color: rgb(213, 213, 213);
+}
+
+#main-title {
+  margin: 0;
 }
