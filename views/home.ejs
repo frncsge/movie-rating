@@ -6,7 +6,8 @@
 <% if(!locals.movies) { %>
     <p id="no-movies-indicator">No movies rated yet</p>
 <% } else { %>
-    <p>Movie kintahay haha</p>
+    <img class="main-movie-poster" src="<%= movies.poster %>" alt="Movie Poster">
+    <p class="main-movie-title-and-year"><%= movies.title %> (<%= movies.year %>)</p>
 <% } %>
 
 <%- include('partials/footer.ejs') %>

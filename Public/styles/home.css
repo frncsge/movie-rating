@@ -46,9 +46,13 @@ main {
 #no-movies-indicator {
   position: absolute;
   top: 50%;
-  color: rgb(213, 213, 213);
+  color: black;
 }
 
 #main-title {
   margin: 0;
+}
+
+.main-movie-poster {
+  width: 200px;
 }
