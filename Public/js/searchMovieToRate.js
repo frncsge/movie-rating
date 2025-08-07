@@ -5,6 +5,8 @@ const searchResults = document.getElementById("search-results");
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 
+displayMovieFromSessionStorage();
+
 //if user clicks search
 searchBtn.addEventListener("click", async () => {
   const userInput = searchInput.value;
@@ -34,6 +36,41 @@ document.addEventListener("click", (event) => {
     searchResults.style.display = "none";
   }
 });
+
+//im using event delegation for this to make the result wrappers clickable
+searchResults.addEventListener("click", (event) => {
+  const resultWrapper = event.target.closest(".result-wrapper");
+
+  if (resultWrapper) {
+    //get the elements inside result-wrapper and store it into sessionStorage
+    const posterSrc = resultWrapper.querySelector(".poster-img").src;
+    const movieTitle = resultWrapper.querySelector(".movie-title").textContent;
+    const movieDate = resultWrapper.querySelector(".movie-date").textContent;
+    sessionStorage.setItem("posterImgSrc", posterSrc);
+    sessionStorage.setItem("movieTitle", movieTitle);
+    sessionStorage.setItem("movieDate", movieDate);
+
+    displayMovieFromSessionStorage();
+
+    //close the search results after clicking a movie
+    searchResults.style.display = "none";
+  }
+});
+
+function displayMovieFromSessionStorage() {
+  const posterDisplay = document.getElementById("poster-display");
+  const titleDateDisplay = document.getElementById("movie-title-display");
+
+  //get the stored items from sessionStorage
+  const posterImgSrc = sessionStorage.getItem("posterImgSrc");
+  const movieTitle = sessionStorage.getItem("movieTitle");
+  const movieDate = sessionStorage.getItem("movieDate");
+  //then check if it has any value already inside. This is so if users refresh, img is still there
+  if (posterImgSrc && movieTitle && movieDate) {
+    posterDisplay.src = posterImgSrc;
+    titleDateDisplay.textContent = `${movieTitle} (${movieDate})`;
+  }
+}
 
 //fetch api
 async function getMovies(userInput) {
@@ -75,7 +112,7 @@ function showMovies(movies) {
     });
   }
 
-  searchResults.style.display = "flex"; 
+  searchResults.style.display = "flex";
 }
 
 function setUpResultTemplate(title, year, poster) {
