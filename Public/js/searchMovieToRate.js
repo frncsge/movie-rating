@@ -52,8 +52,9 @@ searchResults.addEventListener("click", (event) => {
 
     displayMovieFromSessionStorage();
 
-    //close the search results after clicking a movie
+    //close the search results and clear the input text field after clicking a movie
     searchResults.style.display = "none";
+    searchInput.value = "";
   }
 });
 
