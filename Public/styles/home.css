@@ -15,14 +15,6 @@ main {
   padding-top: 1rem;
 }
 
-.result-wrapper {
-  border: 1px solid red;
-  display: flex;
-  justify-content: start;
-  align-items: start;
-  gap: 0.5rem;
-}
-
 .movie-card {
   padding: 1rem;
   box-shadow: -5px 10px 10px 1px rgb(243, 243, 243);

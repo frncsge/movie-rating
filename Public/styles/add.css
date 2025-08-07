@@ -16,6 +16,14 @@
   position: absolute;
 }
 
+.result-wrapper {
+  border: 1px solid red;
+  display: flex;
+  justify-content: start;
+  align-items: start;
+  gap: 0.5rem;
+}
+
 /* this is the image of the search result */
 .poster-img { 
   width: 100px;
