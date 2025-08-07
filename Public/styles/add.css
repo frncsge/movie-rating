@@ -1,5 +1,5 @@
 #search-container {
-    position: relative;
+  position: relative;
 }
 
 #search-results {
@@ -17,21 +17,31 @@
 }
 
 .result-wrapper {
-  border: 1px solid red;
+  cursor: pointer;
   display: flex;
   justify-content: start;
   align-items: start;
   gap: 0.5rem;
 }
 
+.result-wrapper:active {
+  background-color: rgb(203, 203, 203);
+}
+
 /* this is the image of the search result */
-.poster-img { 
+.poster-img {
   width: 100px;
 }
 
 #poster-display {
-    max-width: 300px;
-    margin: 1rem;
+  max-width: 300px;
+  margin: 1rem;
 
-    border: 1px solid red;
+  border: 1px solid red;
+}
+
+@media (hover: hover) {
+  .result-wrapper:hover {
+    background-color: rgb(203, 203, 203);
+  }
 }
