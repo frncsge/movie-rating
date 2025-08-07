@@ -1,0 +1,21 @@
+#search-container {
+    position: relative;
+}
+
+#search-results {
+  background-color: pink;
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  max-width: 200px;
+  overflow: hidden;
+  overflow-y: auto;
+  gap: 0.5rem;
+  display: none;
+
+  position: absolute;
+}
+
+.poster-img {
+  width: 100px;
+}

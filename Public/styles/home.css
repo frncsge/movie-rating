@@ -15,22 +15,6 @@ main {
   padding-top: 1rem;
 }
 
-#search-results {
-  background-color: pink;
-  display: flex;
-  flex-direction: column;
-  max-height: 400px;
-  max-width: 200px;
-  overflow: hidden;
-  overflow-y: auto;
-  gap: 0.5rem;
-  display: none;
-}
-
-.poster-img {
-  width: 100px;
-}
-
 .result-wrapper {
   border: 1px solid red;
   display: flex;
