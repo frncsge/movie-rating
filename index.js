@@ -1,43 +1,71 @@
 import express from "express";
+import pg from "pg";
 
 const app = express();
 const port = 3000;
 
-const movies = [
-  {
-    id: 1,
-    title: "The Notebook",
-    year: 2004,
-    poster:
-      "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg",
-    rating:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eleifend a dolor eget laoreet. Etiam accumsan sagittis tortor vel aliquam. Aenean tristique ante in ligula interdum, eget luctus lorem fermentum. Donec ac libero lacus. Pellentesque rutrum iaculis magna a rutrum. Etiam id posuere felis. Quisque eu ipsum in dui feugiat imperdiet. Pellentesque euismod tristique vehicula. Fusce vulputate viverra gravida. Fusce euismod felis quis blandit vestibulum. Integer magna ex, fringilla eget urna ut, posuere vehicula mi. Integer quis sollicitudin elit.",
-    score: 5,
-    date: "22/12/2004"
-  },
-  {
-    id: 2,
-    title: "Green Book",
-    year: 2018,
-    poster:
-      "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg",
-    rating:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eleifend a dolor eget laoreet. Etiam accumsan sagittis tortor vel aliquam. Aenean tristique ante in ligula interdum, eget luctus lorem fermentum. Donec ac libero lacus. Pellentesque rutrum iaculis magna a rutrum. Etiam id posuere felis. Quisque eu ipsum in dui feugiat imperdiet. Pellentesque euismod tristique vehicula. Fusce vulputate viverra gravida. Fusce euismod felis quis blandit vestibulum. Integer magna ex, fringilla eget urna ut, posuere vehicula mi. Integer quis sollicitudin elit.",
-    score: 5,
-    date: "09/09/2005"
-  },
-];
+const db = new pg.Client({
+  user: "postgres",
+  password: "goofygoober",
+  host: "localhost",
+  port: 5432,
+  database: "movie_rating_db",
+});
+db.connect();
 
 app.use(express.static("Public"));
+app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (req, res) => {
-  res.render("home.ejs", { movies });
+app.get("/", async (req, res) => {
+  try {
+    const movies = await getAllMovies();
+    console.log(movies);
+    res.render("home.ejs", { movies });
+  } catch (error) {
+    console.log(
+      "Error getting all the movies from the database:",
+      error.message
+    );
+  }
 });
 
 app.get("/addpage", (req, res) => {
   res.render("add.ejs");
 });
 
+app.post("/addMovie", async (req, res) => {
+  console.log("ambot", req.body);
+  try {
+    await addMovieToDB(req.body);
+    res.redirect("/");
+  } catch (error) {
+    console.log("Error when adding values to database:", error.message);
+  }
+});
+
 app.listen(port, () => {
   console.log("Running on localhost:" + port);
 });
+
+async function getAllMovies() {
+  try {
+    const result = await db.query("SELECT * FROM movie_ratings ORDER BY id DESC");
+    return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function addMovieToDB(movie) {
+  try {
+    const result = await db.query(
+      "INSERT INTO movie_ratings (title, rating, score, poster) VALUES ($1, $2, $3, $4)",
+      [movie.title, movie.rating, movie.score, movie.poster]
+    );
+  } catch (error) {
+    throw error;
+  }
+}
+
+//to do
+//allow post of a rating. just use an html form to trigger a post req!

@@ -6,7 +6,45 @@
   <div id="search-results"></div>
 </div>
 
-<img id="poster-display" src="https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg" alt="Movie poster">
-<p id="movie-title-display">No movie selected</p>
+<form id="add-movie-form" action="/addMovie" method="POST">
+  <img
+    id="poster-display"
+    src="https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg"
+    alt="Movie poster"
+  />
+  <!-- this input field is hidden and will contain the src of the img element above this. Value is put in searchMovieToRate.js -->
+  <input
+    id="hidden-poster-display-src-input"
+    type="text"
+    hidden
+    name="poster"
+  />
+  <p id="movie-title-display">No movie selected</p>
+  <!-- another hidden input field but for the <p> tag that contains the movie title -->
+  <input
+    id="hidden-movie-title-display-input"
+    type="text"
+    hidden
+    name="title"
+  />
+  <textarea
+    name="rating"
+    id="rating-text-area"
+    required
+    autocomplete="off"
+  ></textarea>
+  <section id="movie-score-section">
+    <input
+      id="movie-score"
+      name="score"
+      type="number"
+      min="1"
+      max="5"
+      required
+    />
+    / 5
+  </section>
+  <input id="submit-btn" type="submit" placeholder="Post" autocomplete="off"/>
+</form>
 
 <%- include('partials/footer.ejs') %>

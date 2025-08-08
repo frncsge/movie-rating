@@ -40,6 +40,13 @@
   border: 1px solid red;
 }
 
+#add-movie-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+}
+
 @media (hover: hover) {
   .result-wrapper:hover {
     background-color: rgb(203, 203, 203);
