@@ -34,12 +34,22 @@ app.get("/addpage", (req, res) => {
 });
 
 app.post("/addMovie", async (req, res) => {
-  console.log("ambot", req.body);
   try {
     await addMovieToDB(req.body);
     res.redirect("/");
   } catch (error) {
     console.log("Error when adding values to database:", error.message);
+  }
+});
+
+app.delete("/delete/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await deletePost(id);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("Error deleting post. Detail:", error.message);
+    res.sendStatus(500);
   }
 });
 
@@ -49,7 +59,9 @@ app.listen(port, () => {
 
 async function getAllMovies() {
   try {
-    const result = await db.query("SELECT * FROM movie_ratings ORDER BY id DESC");
+    const result = await db.query(
+      "SELECT * FROM movie_ratings ORDER BY id DESC"
+    );
     return result.rows;
   } catch (error) {
     throw error;
@@ -62,6 +74,15 @@ async function addMovieToDB(movie) {
       "INSERT INTO movie_ratings (title, rating, score, poster) VALUES ($1, $2, $3, $4)",
       [movie.title, movie.rating, movie.score, movie.poster]
     );
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deletePost(id) {
+  try {
+    await db.query("DELETE FROM movie_ratings WHERE id = $1", [id]);
+    console.log(`Post with id ${id} is deleted.`);
   } catch (error) {
     throw error;
   }

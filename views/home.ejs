@@ -7,10 +7,17 @@
     <p id="no-movies-indicator">No movies rated yet</p>
 <% } else { %>
     <% movies.forEach((movie) => { %>
-        <div class="movie-card">
-            <div class="main-movie-date-wrapper">
+        <div class="movie-card" data-id="<%= movie.id %>">
+            <section class="main-movie-date-wrapper">
                 <span class="main-movie-date"><%= movie.date_created %></span>
-            </div>
+                <div class="kebab-menu">
+                    <button class="kebab-menu-btn">&#8942;</button>
+                    <div class="kebab-menu-options">
+                        <button class="edit-post-btn">Edit</button>
+                        <button class="delete-post-btn">Delete</button>
+                    </div>
+                </div>
+            </section>
             <img class="main-movie-poster" src="<%= movie.poster %>" alt="Movie Poster">
             <p class="main-movie-title-and-year"><%= movie.title %></p>
             <p class="main-personal-score">Personal score: <%= movie.score %> / 5</p>

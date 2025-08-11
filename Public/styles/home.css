@@ -58,3 +58,29 @@ main {
 .main-movie-date-wrapper {
   width: 100%;
 }
+
+.kebab-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.kebab-menu-btn {
+  cursor: pointer;
+}
+
+.kebab-menu-options {
+  background-color: burlywood;
+  position: absolute;
+  top: 100%;
+  display: none;
+}
+
+.kebab-menu-options.show {
+  display: block;
+}
+
+.edit-post-btn, .delete-post-btn {
+  display: block;
+  cursor: pointer;
+  margin: 10px;
+}
