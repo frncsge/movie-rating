@@ -7,14 +7,14 @@
     <p id="no-movies-indicator">No movies rated yet</p>
 <% } else { %>
     <% movies.forEach((movie) => { %>
-        <div class="movie-card">
+        <div class="movie-card" data-id="<%= movie.id %>">
             <section class="main-movie-date-wrapper">
                 <span class="main-movie-date"><%= movie.date_created %></span>
                 <div class="kebab-menu">
                     <button class="kebab-menu-btn">&#8942;</button>
                     <div class="kebab-menu-options">
-                        <a class="edit-post-btn" href="/edit/<%= movie.id %>">Edit</a>
-                        <a class="delete-post-btn" href="/delete/<%= movie.id %>">Delete</a>
+                        <button class="edit-post-btn">Edit</button>
+                        <button class="delete-post-btn">Delete</button>
                     </div>
                 </div>
             </section>

@@ -42,8 +42,15 @@ app.post("/addMovie", async (req, res) => {
   }
 });
 
-app.delete("/delete/:id", (req, res) => {
+app.delete("/delete/:id", async (req, res) => {
   const { id } = req.params;
+  try {
+    await deletePost(id);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log("Error deleting post. Detail:", error.message);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(port, () => {
@@ -67,6 +74,15 @@ async function addMovieToDB(movie) {
       "INSERT INTO movie_ratings (title, rating, score, poster) VALUES ($1, $2, $3, $4)",
       [movie.title, movie.rating, movie.score, movie.poster]
     );
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deletePost(id) {
+  try {
+    await db.query("DELETE FROM movie_ratings WHERE id = $1", [id]);
+    console.log(`Post with id ${id} is deleted.`);
   } catch (error) {
     throw error;
   }
