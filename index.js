@@ -34,7 +34,6 @@ app.get("/addpage", (req, res) => {
 });
 
 app.post("/addMovie", async (req, res) => {
-  console.log("ambot", req.body);
   try {
     await addMovieToDB(req.body);
     res.redirect("/");
@@ -43,13 +42,19 @@ app.post("/addMovie", async (req, res) => {
   }
 });
 
+app.delete("/delete/:id", (req, res) => {
+  const { id } = req.params;
+});
+
 app.listen(port, () => {
   console.log("Running on localhost:" + port);
 });
 
 async function getAllMovies() {
   try {
-    const result = await db.query("SELECT * FROM movie_ratings ORDER BY id DESC");
+    const result = await db.query(
+      "SELECT * FROM movie_ratings ORDER BY id DESC"
+    );
     return result.rows;
   } catch (error) {
     throw error;
