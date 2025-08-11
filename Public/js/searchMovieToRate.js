@@ -5,6 +5,11 @@ const searchResults = document.getElementById("search-results");
 const searchInput = document.getElementById("search-input");
 const searchBtn = document.getElementById("search-btn");
 
+const addMovieForm = document.getElementById("add-movie-form");
+
+displayMovieFromSessionStorage();
+addPosterSrcAndMovieTitleToFormInput();
+
 //if user clicks search
 searchBtn.addEventListener("click", async () => {
   const userInput = searchInput.value;
@@ -34,6 +39,66 @@ document.addEventListener("click", (event) => {
     searchResults.style.display = "none";
   }
 });
+
+//im using event delegation for this to make the result wrappers clickable
+searchResults.addEventListener("click", (event) => {
+  const resultWrapper = event.target.closest(".result-wrapper");
+
+  if (resultWrapper) {
+    //get the elements inside result-wrapper and store it into sessionStorage
+    const posterSrc = resultWrapper.querySelector(".poster-img").src;
+    const movieTitle = resultWrapper.querySelector(".movie-title").textContent;
+    const movieDate = resultWrapper.querySelector(".movie-date").textContent;
+    sessionStorage.setItem("posterImgSrc", posterSrc);
+    sessionStorage.setItem("movieTitle", movieTitle);
+    sessionStorage.setItem("movieDate", movieDate);
+
+    displayMovieFromSessionStorage();
+    addPosterSrcAndMovieTitleToFormInput();
+
+    //close the search results and clear the input text field after clicking a movie
+    searchResults.style.display = "none";
+    searchInput.value = "";
+  }
+});
+
+//when user is done rating and clicks the submit button
+addMovieForm.addEventListener("submit", () => {
+  removeSelectedMovie();
+  removeItemsFromSessionStorage();
+});
+
+function displayMovieFromSessionStorage() {
+  const posterDisplay = document.getElementById("poster-display");
+  const titleDateDisplay = document.getElementById("movie-title-display");
+
+  //get the stored items from sessionStorage
+  const posterImgSrc = sessionStorage.getItem("posterImgSrc");
+  const movieTitle = sessionStorage.getItem("movieTitle");
+  const movieDate = sessionStorage.getItem("movieDate");
+  //then check if it has any value already inside. This is so if users refresh, img is still there
+  if (posterImgSrc && movieTitle && movieDate) {
+    posterDisplay.src = posterImgSrc;
+    titleDateDisplay.textContent = `${movieTitle} (${movieDate})`;
+  }
+}
+
+//this function adds the poster-display src and the <p> tag for movie title to the hidden input fields in an html form (add.ejs file)
+function addPosterSrcAndMovieTitleToFormInput() {
+  const hiddenPosterSrcInput = document.getElementById(
+    "hidden-poster-display-src-input"
+  );
+  const hiddenMovieTitleInput = document.getElementById(
+    "hidden-movie-title-display-input"
+  );
+
+  const posterImgSrc = sessionStorage.getItem("posterImgSrc");
+  const movieTitle = sessionStorage.getItem("movieTitle");
+  const movieDate = sessionStorage.getItem("movieDate");
+
+  hiddenPosterSrcInput.value = posterImgSrc;
+  hiddenMovieTitleInput.value = `${movieTitle} (${movieDate})`;
+}
 
 //fetch api
 async function getMovies(userInput) {
@@ -75,7 +140,7 @@ function showMovies(movies) {
     });
   }
 
-  searchResults.style.display = "flex"; 
+  searchResults.style.display = "flex";
 }
 
 function setUpResultTemplate(title, year, poster) {
@@ -97,4 +162,20 @@ function setUpResultTemplate(title, year, poster) {
           </div>`;
 
   return resultTemplate;
+}
+
+function removeSelectedMovie() {
+  const posterDisplay = document.getElementById("poster-display");
+  const titleDateDisplay = document.getElementById("movie-title-display");
+  const noPhoto =
+    "https://cdn.pixabay.com/photo/2015/11/03/08/56/question-mark-1019820_1280.jpg"; //substitute for no poster
+
+  posterDisplay.src = noPhoto;
+  titleDateDisplay.textContent = "No movie selected";
+}
+
+function removeItemsFromSessionStorage() {
+  sessionStorage.removeItem("posterImgSrc");
+  sessionStorage.removeItem("movieTitle");
+  sessionStorage.removeItem("movieDate");
 }

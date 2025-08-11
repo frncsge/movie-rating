@@ -3,16 +3,16 @@
 <h1 id="main-title">Personal Movie Ratings</h1>
 <p id="main-description">This is where I put my opinions on a movie that I have watched.</p>
 
-<% if(!locals.movies) { %>
+<% if(!locals.movies || locals.movies.length === 0) { %>
     <p id="no-movies-indicator">No movies rated yet</p>
 <% } else { %>
     <% movies.forEach((movie) => { %>
         <div class="movie-card">
             <div class="main-movie-date-wrapper">
-                <span class="main-movie-date"><%= movie.date %></span>
+                <span class="main-movie-date"><%= movie.date_created %></span>
             </div>
             <img class="main-movie-poster" src="<%= movie.poster %>" alt="Movie Poster">
-            <p class="main-movie-title-and-year"><%= movie.title %> (<%= movie.year %>)</p>
+            <p class="main-movie-title-and-year"><%= movie.title %></p>
             <p class="main-personal-score">Personal score: <%= movie.score %> / 5</p>
             <div class="main-movie-rating-wrapper">
                 <p class="main-movie-rating"><%= movie.rating %></p>

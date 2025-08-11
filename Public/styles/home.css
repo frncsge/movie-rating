@@ -15,34 +15,10 @@ main {
   padding-top: 1rem;
 }
 
-#search-results {
-  background-color: pink;
-  display: flex;
-  flex-direction: column;
-  max-height: 400px;
-  max-width: 200px;
-  overflow: hidden;
-  overflow-y: auto;
-  gap: 0.5rem;
-  display: none;
-}
-
-.poster-img {
-  width: 100px;
-}
-
-.result-wrapper {
-  border: 1px solid red;
-  display: flex;
-  justify-content: start;
-  align-items: start;
-  gap: 0.5rem;
-}
-
 .movie-card {
   padding: 1rem;
   box-shadow: -5px 10px 10px 1px rgb(243, 243, 243);
-  max-width: 500px;
+  width: 500px;
 
   display: flex;
   justify-content: center;
