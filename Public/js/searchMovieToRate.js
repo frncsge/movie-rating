@@ -63,9 +63,38 @@ searchResults.addEventListener("click", (event) => {
 });
 
 //when user is done rating and clicks the submit button
-addMovieForm.addEventListener("submit", () => {
-  removeSelectedMovie();
-  removeItemsFromSessionStorage();
+addMovieForm.addEventListener("submit", (e) => {
+  //prevent default behavoiur of an html form submit
+  e.preventDefault();
+
+  //get form data
+  const formData = new FormData(addMovieForm);
+
+  //turn it into json format
+  const data = Object.fromEntries(formData.entries());
+
+  fetch("/addMovie", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data), //make sure to turn json into string before sending
+  })
+    .then((res) => {
+      if (res.ok) {
+        removeSelectedMovie();
+        removeItemsFromSessionStorage();
+        alert("Post succesful!");
+        window.location.href = "/";
+      } else if (res.status === 409) {
+        alert("You have already rated this movie.");
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    })
+    .catch(() => {
+      alert("Something went wrong with the network.");
+    });
 });
 
 function displayMovieFromSessionStorage() {

@@ -15,6 +15,7 @@ db.connect();
 
 app.use(express.static("Public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/", async (req, res) => {
   try {
@@ -36,9 +37,10 @@ app.get("/addpage", (req, res) => {
 app.post("/addMovie", async (req, res) => {
   try {
     await addMovieToDB(req.body);
-    res.redirect("/");
+    res.sendStatus(200);
   } catch (error) {
     console.log("Error when adding values to database:", error.message);
+    res.sendStatus(409);
   }
 });
 
