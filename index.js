@@ -34,6 +34,11 @@ app.get("/addpage", (req, res) => {
   res.render("add.ejs");
 });
 
+app.get("/viewRating/:id", (req, res) => {
+  const { id } = req.params;
+  console.log("view id", id);
+});
+
 app.post("/addMovie", async (req, res) => {
   try {
     await addMovieToDB(req.body);
