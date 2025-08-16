@@ -50,6 +50,12 @@ main {
 
 .main-movie-rating {
   margin: 0;
+
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 
 .main-personal-score {
@@ -80,7 +86,8 @@ main {
   display: block;
 }
 
-.edit-post-btn, .delete-post-btn {
+.edit-post-btn,
+.delete-post-btn {
   display: block;
   cursor: pointer;
   margin: 10px;
