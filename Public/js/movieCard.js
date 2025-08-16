@@ -9,8 +9,7 @@ main.addEventListener("click", (e) => {
   //check if the movie card is clicked
   if(movieCard && !kebabMenuBtn && !deleteBtn){
     const id = movieCard.dataset.id;
-    fetch(`/viewRating/${id}`);
-    alert("yawa");
+    window.location.href = `/viewRating/${id}`;
   }
 
   //checks if the kebab menu button is clicked to show the kebab options

@@ -20,7 +20,6 @@ app.use(express.json());
 app.get("/", async (req, res) => {
   try {
     const movies = await getAllMovies();
-    console.log(movies);
     res.render("home.ejs", { movies });
   } catch (error) {
     console.log(
@@ -34,9 +33,15 @@ app.get("/addpage", (req, res) => {
   res.render("add.ejs");
 });
 
-app.get("/viewRating/:id", (req, res) => {
+app.get("/viewRating/:id", async (req, res) => {
   const { id } = req.params;
-  console.log("view id", id);
+  try {
+    const movie = await getMovie(id);
+    console.log("selected movie:", movie);
+    res.render("viewRating.ejs", { movie });
+  } catch (error) {
+    console.log("Error getting the movie from the database:", error.message);
+  }
 });
 
 app.post("/addMovie", async (req, res) => {
@@ -70,6 +75,17 @@ async function getAllMovies() {
       "SELECT * FROM movie_ratings ORDER BY id DESC"
     );
     return result.rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getMovie(id) {
+  try {
+    const result = await db.query("SELECT * FROM movie_ratings WHERE id = $1", [
+      id,
+    ]);
+    return result.rows[0];
   } catch (error) {
     throw error;
   }

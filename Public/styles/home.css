@@ -58,6 +58,10 @@ main {
   -webkit-box-orient: vertical;
 }
 
+.main-movie-rating-viewed {
+  margin: 0;
+}
+
 .main-personal-score {
   margin-top: 0px;
 }
