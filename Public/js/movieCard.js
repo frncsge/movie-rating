@@ -1,21 +1,24 @@
 const main = document.querySelector("main");
+const kebabOverlay = document.querySelector(".kebab-overlay");
 
 main.addEventListener("click", (e) => {
   const movieCard = e.target.closest(".movie-card");
-  const kebabMenuBtn = e.target.classList.contains("kebab-menu-btn");
-  const deleteBtn = e.target.classList.contains("delete-post-btn");
-
+  const kebabMenuBtn = e.target.closest(".kebab-menu-btn");
+  const deleteBtn = e.target.closest(".delete-post-btn");
 
   //check if the movie card is clicked
-  if(movieCard && !kebabMenuBtn && !deleteBtn){
+  if (movieCard && !kebabMenuBtn && !deleteBtn) {
     const id = movieCard.dataset.id;
     window.location.href = `/viewRating/${id}`;
   }
 
   //checks if the kebab menu button is clicked to show the kebab options
   if (kebabMenuBtn) {
-    const kebebMenu = e.target.nextElementSibling; //this takes the next sibling of the kebabBtn which is the menu (home.ejs)
-    kebebMenu.classList.toggle("show");
+    const kebabMenu = e.target.nextElementSibling; //this takes the next sibling of the kebabBtn which is the menu (home.ejs)
+    if (!kebabMenu.classList.contains("show")) {
+      kebabMenu.classList.add("show");
+      kebabOverlay.classList.add("show");
+    }
   }
 
   //checks if delete button is clicked
@@ -41,5 +44,11 @@ main.addEventListener("click", (e) => {
 
     //hides the options after user clicked delete
     kebabMenuOptions.classList.remove("show");
+    kebabOverlay.classList.remove("show");
   }
+});
+
+kebabOverlay.addEventListener("click", () => {
+  document.querySelector(".kebab-menu-options.show")?.classList.remove("show");
+  kebabOverlay.classList.remove("show");
 });
