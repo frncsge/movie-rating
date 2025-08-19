@@ -2,7 +2,9 @@
 
 <h1 id="main-title">Personal Movie Ratings</h1>
 <p id="main-description">This is where I put my opinions on a movie that I have watched.</p>
-
+<div id="sort-buttons-container">
+    <span>Sort by rating: <a href="/?sortBy=score&sortOrder=ASC">&#8593;</a> <a href="/?sortBy=score&sortOrder=DESC">&#8595;</a></span>
+</div>
 <% if(!locals.movies || locals.movies.length === 0) { %>
     <p id="no-movies-indicator">No movies rated yet</p>
 <% } else { %>

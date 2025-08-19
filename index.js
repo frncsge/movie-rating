@@ -19,7 +19,8 @@ app.use(express.json());
 
 app.get("/", async (req, res) => {
   try {
-    const movies = await getAllMovies();
+    const {sortBy, sortOrder} = req.query;
+    const movies = await getAllMovies(sortBy || "id", sortOrder || "DESC");
     res.render("home.ejs", { movies });
   } catch (error) {
     console.log(
@@ -69,10 +70,10 @@ app.listen(port, () => {
   console.log("Running on localhost:" + port);
 });
 
-async function getAllMovies() {
+async function getAllMovies(sortBy, sortOrder) {
   try {
     const result = await db.query(
-      "SELECT * FROM movie_ratings ORDER BY id DESC"
+      `SELECT * FROM movie_ratings ORDER BY ${sortBy} ${sortOrder}`
     );
     return result.rows;
   } catch (error) {
