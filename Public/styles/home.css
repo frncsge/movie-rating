@@ -111,3 +111,12 @@ main {
   cursor: pointer;
   margin: 10px;
 }
+
+#sort-buttons-container > span {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.sort-arrow {
+  text-decoration: none;
+}
