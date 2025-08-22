@@ -5,11 +5,17 @@ main.addEventListener("click", (e) => {
   const movieCard = e.target.closest(".movie-card");
   const kebabMenuBtn = e.target.closest(".kebab-menu-btn");
   const deleteBtn = e.target.closest(".delete-post-btn");
+  const editBtn = e.target.closest(".edit-post-btn");
 
   //check if the movie card is clicked
-  if (movieCard && !kebabMenuBtn && !deleteBtn) {
+  if (movieCard && !kebabMenuBtn && !deleteBtn && !editBtn) {
     const id = movieCard.dataset.id;
     window.location.href = `/viewRating/${id}`;
+  }
+
+  if (editBtn) {
+    const id = e.target.closest(".movie-card").dataset.id;
+    window.location.href = `/edit/${id}`;
   }
 
   //checks if the kebab menu button is clicked to show the kebab options

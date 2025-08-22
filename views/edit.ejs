@@ -1,0 +1,41 @@
+<%- include('partials/header.ejs') %>
+
+<form id="edit-movie-form" action="/edit/<%= movie.id %>" method="POST">
+  <img
+    id="poster-display"
+    src="<%= movie.poster %>"
+    alt="Movie poster"
+  />
+  <input
+    type="hidden"
+    name="poster"
+    value="<%= movie.poster %>"
+  />
+  <p id="movie-title-display"><%= movie.title %></p>
+  <input
+    type="hidden"
+    name="title"
+    value="<%= movie.title %>"
+  />
+  <textarea
+    name="rating"
+    id="rating-text-area"
+    required
+    autocomplete="off"
+  ><%= movie.rating %></textarea>
+  <section id="movie-score-section">
+    <input
+      id="movie-score"
+      name="score"
+      type="number"
+      min="1"
+      max="5"
+      required
+      value="<%= movie.score %>"
+    />
+    / 5
+  </section>
+  <input id="submit-btn" type="submit" placeholder="Post" autocomplete="off"/>
+</form>
+
+<%- include('partials/footer.ejs') %>
